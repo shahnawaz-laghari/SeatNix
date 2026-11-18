@@ -36,7 +36,6 @@ light, dark, and system themes.
 
 ```
 lib/
-  config/       backend IDs (public endpoint and project ID only)
   l10n/         Urdu translations
   models/       Trip model
   screens/      UI screens
