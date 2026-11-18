@@ -116,12 +116,12 @@ class _AboutSheetState extends State<AboutSheet> {
                 textDirection: Directionality.of(context),
                 children: [
                   Container(
-                    width: 58,
-                    height: 58,
-                    padding: const EdgeInsets.all(7),
+                    width: 78,
+                    height: 78,
+                    padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(16),
+                      borderRadius: BorderRadius.circular(22),
                     ),
                     child: Image.asset(
                       'assets/images/app-icon.png',
