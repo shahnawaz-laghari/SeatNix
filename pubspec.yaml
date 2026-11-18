@@ -85,6 +85,7 @@ flutter:
 
   assets:
     - assets/images/splash-screen.png
+    - assets/images/app-icon.png
     - assets/animation/SeatNix-splash-animation.mp4
     - assets/audio/success.wav
     - assets/images/payments/

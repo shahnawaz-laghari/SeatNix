@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:seatnix/screens/settings_screen.dart';
+import 'package:seatnix/services/language.dart';
 
 import '../helpers/fake_auth_service.dart';
 
@@ -41,6 +42,50 @@ void main() {
       await tester.pumpAndSettle();
       expect(find.text(label), findsOneWidget, reason: label);
     }
+  });
+
+  testWidgets('opens the about slider with team details', (tester) async {
+    await pumpSettings(tester);
+    await tapRow(tester, 'About SeatNix');
+
+    expect(find.text('About SeatNix'), findsWidgets);
+    expect(find.text('What is SeatNix'), findsOneWidget);
+    expect(find.text('Book a seat'), findsOneWidget);
+
+    await tester.tap(find.text('Next'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Who made it'), findsOneWidget);
+    expect(find.text('Shah Nawaz Ahmed'), findsOneWidget);
+    expect(find.text('Israr Memon'), findsOneWidget);
+    expect(find.text('Shahzaib Shaikh'), findsOneWidget);
+    expect(find.text('Asim Nawaz Khan'), findsOneWidget);
+
+    await tester.tap(find.text('Next'));
+    await tester.pumpAndSettle();
+    expect(find.text('Why we made it'), findsOneWidget);
+  });
+
+  testWidgets('about slider adapts to dark theme and Urdu', (tester) async {
+    languageController.value = languageUrdu;
+    addTearDown(() => languageController.value = languageEnglish);
+
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: ThemeData(brightness: Brightness.dark),
+        home: SettingsScreen(authService: FakeAuthService()),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    await tapRow(tester, tr('About SeatNix'));
+
+    expect(find.text(tr('What is SeatNix')), findsOneWidget);
+    expect(find.text(tr('Next')), findsOneWidget);
+
+    await tester.tap(find.text(tr('Next')));
+    await tester.pumpAndSettle();
+    expect(find.text(tr('Who made it')), findsOneWidget);
   });
 
   testWidgets('opens the privacy policy document', (tester) async {

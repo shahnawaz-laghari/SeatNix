@@ -10,6 +10,7 @@ import '../widgets/auth_style.dart';
 import '../widgets/localized_text.dart';
 import 'change_password_screen.dart';
 import 'customer_service_screen.dart';
+import 'about_sheet.dart';
 import 'legal_screens.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -261,6 +262,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
           ),
           const _SectionTitle('About'),
+          _NavRow(
+            title: 'About SeatNix',
+            trailingText: 'Team & story',
+            onTap: () => showAboutSheet(context, version: _version),
+          ),
           _NavRow(
             title: 'App version',
             trailingText: _version,
