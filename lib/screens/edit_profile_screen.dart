@@ -163,7 +163,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   onPressed: _isSaving ? null : _save,
                   style: FilledButton.styleFrom(
                     backgroundColor: authAccentColor,
-                    foregroundColor: buttonTextColor(context),
+                    foregroundColor: Colors.white,
+                    disabledForegroundColor: Colors.white.withValues(
+                      alpha: 0.8,
+                    ),
                     disabledBackgroundColor: authAccentColor.withValues(
                       alpha: 0.6,
                     ),
