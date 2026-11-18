@@ -125,11 +125,57 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> _pickOtherDate() async {
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
+    final appTheme = Theme.of(context);
+    final pickerTheme = DatePickerThemeData(
+      backgroundColor: cardBackground(context),
+      headerBackgroundColor: authAccentColor,
+      headerForegroundColor: buttonTextColor(context),
+      dividerColor: dividerColor(context),
+      dayStyle: TextStyle(color: primaryText(context)),
+      weekdayStyle: TextStyle(
+        color: mutedText(context),
+        fontWeight: FontWeight.w700,
+      ),
+      dayForegroundColor: WidgetStateProperty.resolveWith<Color?>((states) {
+        if (states.contains(WidgetState.selected)) {
+          return buttonTextColor(context);
+        }
+        if (states.contains(WidgetState.disabled)) {
+          return mutedText(context).withValues(alpha: 0.4);
+        }
+        return primaryText(context);
+      }),
+      dayBackgroundColor: WidgetStateProperty.resolveWith<Color?>((states) {
+        if (states.contains(WidgetState.selected)) return authAccentColor;
+        return null;
+      }),
+      todayForegroundColor: WidgetStateProperty.all(authAccentColor),
+      todayBackgroundColor: WidgetStateProperty.all(Colors.transparent),
+      cancelButtonStyle: TextButton.styleFrom(
+        foregroundColor: mutedText(context),
+      ),
+      confirmButtonStyle: TextButton.styleFrom(
+        foregroundColor: authAccentColor,
+      ),
+    );
     final picked = await showDatePicker(
       context: context,
       initialDate: _otherDate ?? today.add(const Duration(days: 2)),
       firstDate: today,
       lastDate: today.add(const Duration(days: 60)),
+      builder: (context, child) => Theme(
+        data: appTheme.copyWith(
+          colorScheme: appTheme.colorScheme.copyWith(
+            primary: authAccentColor,
+            onPrimary: buttonTextColor(context),
+            surface: cardBackground(context),
+            onSurface: primaryText(context),
+          ),
+          datePickerTheme: pickerTheme,
+          canvasColor: cardBackground(context),
+        ),
+        child: child!,
+      ),
     );
     if (picked == null || !mounted) return;
     setState(() {
