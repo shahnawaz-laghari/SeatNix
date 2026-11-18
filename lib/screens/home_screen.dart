@@ -10,6 +10,7 @@ import '../services/departure_schedule.dart';
 import 'bus_seat_screen.dart';
 import 'notifications_screen.dart';
 import 'profile_screen.dart';
+import 'signin_screen.dart';
 
 const _cardCream = Color(0xFFFDF3E2);
 const _journeyBlue = Color(0xFF0B57A4);
@@ -245,6 +246,22 @@ class _HomeScreenState extends State<HomeScreen> {
         .push(MaterialPageRoute(builder: (_) => const NotificationsScreen()));
   }
 
+  Future<void> _logout() async {
+    try {
+      await widget.authService.logout();
+      if (!mounted) return;
+      Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(
+          builder: (_) => SignInScreen(authService: widget.authService),
+        ),
+        (route) => false,
+      );
+    } on AuthException catch (e) {
+      if (!mounted) return;
+      showAuthError(context, e.message);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final user = AppwriteAuthService.cachedUser;
@@ -371,6 +388,21 @@ class _HomeScreenState extends State<HomeScreen> {
                 Icons.notifications_none_rounded,
                 color: primaryText(context),
               ),
+            ),
+          ),
+        ),
+        const SizedBox(width: 8),
+        Material(
+          color: cardBackground(context),
+          shape: const CircleBorder(),
+          elevation: 1,
+          child: InkWell(
+            customBorder: const CircleBorder(),
+            onTap: _logout,
+            child: SizedBox(
+              width: 48,
+              height: 48,
+              child: Icon(Icons.logout_rounded, color: const Color(0xFFE23B3B)),
             ),
           ),
         ),
