@@ -465,7 +465,8 @@ class _HomeScreenState extends State<HomeScreen> {
               onPressed: _openSeatSelection,
               style: FilledButton.styleFrom(
                 backgroundColor: Colors.white,
-                foregroundColor: accentColor(context),
+                foregroundColor: Colors.black,
+                disabledForegroundColor: Colors.black.withValues(alpha: 0.6),
                 padding: const EdgeInsets.symmetric(vertical: 16),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16),
