@@ -30,15 +30,18 @@ class _SplashScreenState extends State<SplashScreen> {
     _controller = VideoPlayerController.asset(
       'assets/animation/SeatNix-splash-animation.mp4',
     )..addListener(_onVideoUpdate);
-    _controller.initialize().then((_) async {
-      if (!mounted) return;
-      await _controller.setVolume(0);
-      await _controller.play();
-      if (!mounted) return;
-      setState(() => _videoReady = true);
-    }).catchError((Object _) {
-      if (mounted) _openNextScreen();
-    });
+    _controller
+        .initialize()
+        .then((_) async {
+          if (!mounted) return;
+          await _controller.setVolume(0);
+          await _controller.play();
+          if (!mounted) return;
+          setState(() => _videoReady = true);
+        })
+        .catchError((Object _) {
+          if (mounted) _openNextScreen();
+        });
     _fallbackTimer = Timer(_maxWait, _openNextScreen);
   }
 
@@ -76,9 +79,8 @@ class _SplashScreenState extends State<SplashScreen> {
     final next = user != null
         ? HomeScreen(authService: widget.authService)
         : SignInScreen(authService: widget.authService);
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (_) => next),
-    );
+    Navigator.of(context)
+        .pushReplacement(MaterialPageRoute(builder: (_) => next));
   }
 
   @override

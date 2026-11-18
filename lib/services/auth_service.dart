@@ -126,6 +126,11 @@ abstract class AuthService {
   });
 
   Future<void> updatePassword({required String password});
+
+  Future<void> changePassword({
+    required String oldPassword,
+    required String newPassword,
+  });
 }
 
 class AppwriteAuthService implements AuthService {
@@ -446,6 +451,21 @@ class AppwriteAuthService implements AuthService {
       _recoveryCode = null;
     } on AppwriteException catch (e) {
       throw AuthException(e.message ?? 'Could not reset your password.');
+    }
+  }
+
+  @override
+  Future<void> changePassword({
+    required String oldPassword,
+    required String newPassword,
+  }) async {
+    try {
+      await AppwriteBackend.account.updatePassword(
+        password: newPassword,
+        oldPassword: oldPassword,
+      );
+    } on AppwriteException catch (e) {
+      throw AuthException(friendlyAuthMessage(e));
     }
   }
 }

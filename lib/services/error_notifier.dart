@@ -10,6 +10,9 @@ class ErrorNotifier {
   static final FlutterLocalNotificationsPlugin _plugin =
       FlutterLocalNotificationsPlugin();
   static bool _initialized = false;
+  static bool _pushEnabled = true;
+
+  static void setPushEnabled(bool enabled) => _pushEnabled = enabled;
 
   static Future<void> initialize() async {
     if (_initialized || kIsWeb) return;
@@ -32,7 +35,7 @@ class ErrorNotifier {
   }
 
   static Future<void> showAuthError(String message) async {
-    if (kIsWeb) return;
+    if (kIsWeb || !_pushEnabled) return;
     try {
       await initialize();
       await _plugin.show(

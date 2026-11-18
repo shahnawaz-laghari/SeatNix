@@ -81,10 +81,9 @@ class TripStore {
     }
 
     if (localLastPayment != null || remoteLastPayment != null) {
-      final saved = [localLastPayment, remoteLastPayment]
-          .whereType<Trip>()
-          .toList()
-        ..sort((a, b) => b.paidAt.compareTo(a.paidAt));
+      final saved =
+          [localLastPayment, remoteLastPayment].whereType<Trip>().toList()
+            ..sort((a, b) => b.paidAt.compareTo(a.paidAt));
       final last = saved.first;
       if (localLastPayment?.reference != last.reference) {
         await _saveLastPaymentLocal(userId, last);

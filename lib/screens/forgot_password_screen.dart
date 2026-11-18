@@ -43,9 +43,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
       );
     } on AuthException catch (e) {
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(e.message)),
-      );
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.message)));
     } finally {
       if (mounted) setState(() => _isLoading = false);
     }
@@ -66,7 +65,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           padding: EdgeInsets.symmetric(horizontal: 24),
           child: ConstrainedBox(
             constraints: BoxConstraints(
-              minHeight: MediaQuery.sizeOf(context).height -
+              minHeight:
+                  MediaQuery.sizeOf(context).height -
                   MediaQuery.paddingOf(context).vertical,
             ),
             child: IntrinsicHeight(
@@ -124,8 +124,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       style: FilledButton.styleFrom(
                         backgroundColor: authAccentColor,
                         foregroundColor: buttonTextColor(context),
-                        disabledBackgroundColor:
-                            authAccentColor.withValues(alpha: 0.6),
+                        disabledBackgroundColor: authAccentColor.withValues(
+                          alpha: 0.6,
+                        ),
                         padding: EdgeInsets.symmetric(vertical: 18),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
@@ -158,12 +159,14 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                           children: [
                             Text(
                               'Back to sign in',
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                              ),
+                              style: TextStyle(fontWeight: FontWeight.w600),
                             ),
                             SizedBox(height: 2),
-                            Divider(height: 1.5, thickness: 1.5, color: primaryText(context)),
+                            Divider(
+                              height: 1.5,
+                              thickness: 1.5,
+                              color: primaryText(context),
+                            ),
                           ],
                         ),
                       ),

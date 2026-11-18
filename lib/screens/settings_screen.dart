@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart' hide Text;
+import 'package:package_info_plus/package_info_plus.dart';
 
+import '../services/error_notifier.dart';
 import '../services/language.dart';
+import '../services/settings_store.dart';
 import '../services/theme_controller.dart';
+import '../services/auth_service.dart';
 import '../widgets/auth_style.dart';
 import '../widgets/localized_text.dart';
+import 'change_password_screen.dart';
 import 'customer_service_screen.dart';
+import 'legal_screens.dart';
 
 class SettingsScreen extends StatefulWidget {
-  const SettingsScreen({super.key});
+  const SettingsScreen({super.key, required this.authService});
+
+  final AuthService authService;
 
   @override
   State<SettingsScreen> createState() => _SettingsScreenState();
@@ -17,17 +25,67 @@ class _SettingsScreenState extends State<SettingsScreen> {
   bool _pushNotifications = true;
   bool _emailNotifications = false;
   bool _showPhone = false;
+  String _version = '1.0.0';
 
-  void _comingSoon(String feature) {
-    ScaffoldMessenger.of(context)
-      ..hideCurrentSnackBar()
-      ..showSnackBar(
-        SnackBar(
-          content: Text(
-            tr('{feature} is coming soon.', {'feature': tr(feature)}),
-          ),
+  @override
+  void initState() {
+    super.initState();
+    _loadPreferences();
+  }
+
+  Future<void> _loadPreferences() async {
+    final results = await Future.wait([
+      SettingsStore.pushNotifications,
+      SettingsStore.emailNotifications,
+      SettingsStore.showPhone,
+      PackageInfo.fromPlatform(),
+    ]);
+    if (!mounted) return;
+    setState(() {
+      _pushNotifications = results[0] as bool;
+      _emailNotifications = results[1] as bool;
+      _showPhone = results[2] as bool;
+      _version = (results[3] as PackageInfo).version;
+    });
+  }
+
+  Future<void> _setPush(bool value) async {
+    setState(() => _pushNotifications = value);
+    await SettingsStore.write(SettingsStore.pushNotificationsKey, value);
+    ErrorNotifier.setPushEnabled(value);
+  }
+
+  Future<void> _setEmail(bool value) async {
+    setState(() => _emailNotifications = value);
+    await SettingsStore.write(SettingsStore.emailNotificationsKey, value);
+  }
+
+  Future<void> _setShowPhone(bool value) async {
+    setState(() => _showPhone = value);
+    await SettingsStore.write(SettingsStore.showPhoneKey, value);
+  }
+
+  void _showAbout() {
+    showDialog<void>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        backgroundColor: cardBackground(dialogContext),
+        title: Text(
+          'SeatNix',
+          style: TextStyle(color: primaryText(dialogContext)),
         ),
-      );
+        content: Text(
+          '${tr('Version')} $_version\n${tr('Plan. Book. Ride.')}',
+          style: TextStyle(color: mutedText(dialogContext)),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(dialogContext).pop(),
+            child: Text('OK'),
+          ),
+        ],
+      ),
+    );
   }
 
   String _themeLabel(ThemeMode mode) {
@@ -137,24 +195,29 @@ class _SettingsScreenState extends State<SettingsScreen> {
             title: 'Push notifications',
             subtitle: 'Trip updates and seat alerts',
             value: _pushNotifications,
-            onChanged: (value) => setState(() => _pushNotifications = value),
+            onChanged: _setPush,
           ),
           _SwitchRow(
             title: 'Email notifications',
             subtitle: 'Booking receipts and news',
             value: _emailNotifications,
-            onChanged: (value) => setState(() => _emailNotifications = value),
+            onChanged: _setEmail,
           ),
           const _SectionTitle('Privacy'),
           _SwitchRow(
             title: 'Show phone number',
             subtitle: 'Let drivers see your phone number',
             value: _showPhone,
-            onChanged: (value) => setState(() => _showPhone = value),
+            onChanged: _setShowPhone,
           ),
           _NavRow(
             title: 'Change password',
-            onTap: () => _comingSoon('Change password'),
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (_) =>
+                    ChangePasswordScreen(authService: widget.authService),
+              ),
+            ),
           ),
           const _SectionTitle('Appearance'),
           _NavRow(
@@ -177,14 +240,32 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
           _NavRow(
             title: 'Privacy policy',
-            onTap: () => _comingSoon('Privacy policy'),
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (_) => const LegalDocumentScreen(
+                  titleKey: 'Privacy policy',
+                  sections: privacyPolicySections,
+                ),
+              ),
+            ),
           ),
           _NavRow(
             title: 'Terms of service',
-            onTap: () => _comingSoon('Terms of service'),
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (_) => const LegalDocumentScreen(
+                  titleKey: 'Terms of service',
+                  sections: termsSections,
+                ),
+              ),
+            ),
           ),
           const _SectionTitle('About'),
-          const _NavRow(title: 'App version', trailingText: '1.0.0'),
+          _NavRow(
+            title: 'App version',
+            trailingText: _version,
+            onTap: _showAbout,
+          ),
         ],
       ),
     );

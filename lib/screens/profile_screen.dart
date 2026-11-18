@@ -3,6 +3,7 @@ import 'package:flutter/material.dart' hide Text;
 import 'package:image_picker/image_picker.dart';
 
 import '../services/auth_service.dart';
+import '../services/settings_store.dart';
 import '../widgets/auth_style.dart';
 import '../widgets/localized_text.dart';
 import 'edit_profile_screen.dart';
@@ -36,6 +37,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Future<void> _refreshAccount() async {
+    final showPhone = await SettingsStore.showPhone;
+    if (mounted) setState(() => _showPhone = showPhone);
     try {
       await widget.authService.currentUser();
       await widget.authService.currentAvatar();
@@ -57,6 +60,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   bool _uploadingAvatar = false;
+
+  bool _showPhone = false;
 
   bool get _supportsCamera =>
       !kIsWeb &&
@@ -167,7 +172,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final name = user?.name ?? '-';
     final avatarBytes = AppwriteAuthService.cachedAvatar;
     final email = user?.email ?? '-';
-    final phone = user?.phoneNumber ?? '-';
+    final phone = _showPhone ? (user?.phoneNumber ?? '-') : 'Hidden';
 
     return Scaffold(
       backgroundColor: screenBackground(context),
@@ -199,7 +204,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       icon: const Icon(Icons.settings, color: Colors.white),
                       onPressed: () => Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (_) => const SettingsScreen(),
+                          builder: (_) =>
+                              SettingsScreen(authService: widget.authService),
                         ),
                       ),
                     ),

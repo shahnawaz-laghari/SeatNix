@@ -7,7 +7,9 @@ import 'screens/splash_screen.dart';
 import 'screens/email_verification_link_screen.dart';
 import 'services/auth_service.dart';
 import 'services/appwrite_backend.dart';
+import 'services/error_notifier.dart';
 import 'services/language.dart';
+import 'services/settings_store.dart';
 import 'services/theme_controller.dart';
 
 Future<void> main() async {
@@ -17,6 +19,7 @@ Future<void> main() async {
   AppwriteBackend.client;
   await languageController.load();
   await themeController.load();
+  ErrorNotifier.setPushEnabled(await SettingsStore.pushNotifications);
   runApp(const MyApp());
 }
 

@@ -23,8 +23,10 @@ class OtpVerificationScreen extends StatefulWidget {
 class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
   static const _codeLength = 6;
 
-  final _controllers =
-      List.generate(_codeLength, (_) => TextEditingController());
+  final _controllers = List.generate(
+    _codeLength,
+    (_) => TextEditingController(),
+  );
   final _focusNodes = List.generate(_codeLength, (_) => FocusNode());
   bool _isLoading = false;
 
@@ -116,8 +118,9 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
         autofocus: index == 0,
         textAlign: TextAlign.center,
         keyboardType: TextInputType.number,
-        textInputAction:
-            index == _codeLength - 1 ? TextInputAction.done : TextInputAction.next,
+        textInputAction: index == _codeLength - 1
+            ? TextInputAction.done
+            : TextInputAction.next,
         inputFormatters: [FilteringTextInputFormatter.digitsOnly],
         maxLength: _codeLength,
         onChanged: (value) => _onDigitChanged(index, value),
@@ -151,7 +154,8 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
           padding: EdgeInsets.symmetric(horizontal: 24),
           child: ConstrainedBox(
             constraints: BoxConstraints(
-              minHeight: MediaQuery.sizeOf(context).height -
+              minHeight:
+                  MediaQuery.sizeOf(context).height -
                   MediaQuery.paddingOf(context).vertical,
             ),
             child: IntrinsicHeight(
@@ -171,10 +175,9 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                   ),
                   SizedBox(height: 8),
                   Text(
-                    tr(
-                      'We sent a 6-digit code to {email}.',
-                      {'email': widget.email},
-                    ),
+                    tr('We sent a 6-digit code to {email}.', {
+                      'email': widget.email,
+                    }),
                     style: TextStyle(
                       color: mutedText(context),
                       fontSize: 15,
@@ -195,8 +198,9 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                     style: FilledButton.styleFrom(
                       backgroundColor: authAccentColor,
                       foregroundColor: buttonTextColor(context),
-                      disabledBackgroundColor:
-                          authAccentColor.withValues(alpha: 0.6),
+                      disabledBackgroundColor: authAccentColor.withValues(
+                        alpha: 0.6,
+                      ),
                       padding: EdgeInsets.symmetric(vertical: 18),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),

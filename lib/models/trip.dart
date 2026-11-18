@@ -1,6 +1,16 @@
 const _months = [
-  'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-  'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'May',
+  'Jun',
+  'Jul',
+  'Aug',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dec',
 ];
 
 String formatShortDate(DateTime date) {
@@ -38,26 +48,26 @@ class Trip {
   final DateTime paidAt;
 
   Map<String, dynamic> toJson() => {
-        'reference': reference,
-        'from': from,
-        'to': to,
-        'seat': seat,
-        'travelDate': travelDate.toIso8601String(),
-        'total': total,
-        'paymentMethod': paymentMethod,
-        'paymentDetail': paymentDetail,
-        'paidAt': paidAt.toIso8601String(),
-      };
+    'reference': reference,
+    'from': from,
+    'to': to,
+    'seat': seat,
+    'travelDate': travelDate.toIso8601String(),
+    'total': total,
+    'paymentMethod': paymentMethod,
+    'paymentDetail': paymentDetail,
+    'paidAt': paidAt.toIso8601String(),
+  };
 
   factory Trip.fromJson(Map<String, dynamic> json) => Trip(
-        reference: json['reference'] as String,
-        from: json['from'] as String,
-        to: json['to'] as String,
-        seat: json['seat'] as String,
-        travelDate: DateTime.parse(json['travelDate'] as String),
-        total: json['total'] as int,
-        paymentMethod: json['paymentMethod'] as String,
-        paymentDetail: json['paymentDetail'] as String,
-        paidAt: DateTime.parse(json['paidAt'] as String),
-      );
+    reference: json['reference'] as String,
+    from: json['from'] as String,
+    to: json['to'] as String,
+    seat: json['seat'] as String,
+    travelDate: DateTime.parse(json['travelDate'] as String),
+    total: json['total'] as int,
+    paymentMethod: json['paymentMethod'] as String,
+    paymentDetail: json['paymentDetail'] as String,
+    paidAt: DateTime.parse(json['paidAt'] as String),
+  );
 }

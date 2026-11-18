@@ -49,9 +49,8 @@ class _SetNewPasswordScreenState extends State<SetNewPasswordScreen> {
       );
     } on AuthException catch (e) {
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(e.message)),
-      );
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.message)));
     } finally {
       if (mounted) setState(() => _isLoading = false);
     }
@@ -82,7 +81,8 @@ class _SetNewPasswordScreenState extends State<SetNewPasswordScreen> {
           padding: EdgeInsets.symmetric(horizontal: 24),
           child: ConstrainedBox(
             constraints: BoxConstraints(
-              minHeight: MediaQuery.sizeOf(context).height -
+              minHeight:
+                  MediaQuery.sizeOf(context).height -
                   MediaQuery.paddingOf(context).vertical,
             ),
             child: IntrinsicHeight(
@@ -125,7 +125,9 @@ class _SetNewPasswordScreenState extends State<SetNewPasswordScreen> {
                         icon: Icons.lock_outline,
                         suffixIcon: _visibilityToggle(
                           _obscurePassword,
-                          () => setState(() => _obscurePassword = !_obscurePassword),
+                          () => setState(
+                            () => _obscurePassword = !_obscurePassword,
+                          ),
                         ),
                       ),
                       validator: (value) {
@@ -151,7 +153,9 @@ class _SetNewPasswordScreenState extends State<SetNewPasswordScreen> {
                         icon: Icons.lock_outline,
                         suffixIcon: _visibilityToggle(
                           _obscureConfirm,
-                          () => setState(() => _obscureConfirm = !_obscureConfirm),
+                          () => setState(
+                            () => _obscureConfirm = !_obscureConfirm,
+                          ),
                         ),
                       ),
                       validator: (value) {
@@ -169,8 +173,9 @@ class _SetNewPasswordScreenState extends State<SetNewPasswordScreen> {
                       style: FilledButton.styleFrom(
                         backgroundColor: authAccentColor,
                         foregroundColor: buttonTextColor(context),
-                        disabledBackgroundColor:
-                            authAccentColor.withValues(alpha: 0.6),
+                        disabledBackgroundColor: authAccentColor.withValues(
+                          alpha: 0.6,
+                        ),
                         padding: EdgeInsets.symmetric(vertical: 18),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),

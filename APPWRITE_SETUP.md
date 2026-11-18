@@ -49,7 +49,7 @@ phone number use Appwrite Account and Account Preferences.
 
 ## Account transition
 
-Supabase password hashes cannot be imported into Appwrite. Existing users need
-to register with Appwrite again. Existing trip records in the old app are
-device-local and tied to the old Supabase user ID; they are not automatically
+Existing users need to register again because password hashes cannot be
+transferred between authentication providers. Trip records created by earlier
+versions are tied to the previous account identifier and are not automatically
 associated with a new Appwrite account.

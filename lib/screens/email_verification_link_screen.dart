@@ -43,8 +43,7 @@ class _EmailVerificationLinkScreenState
       );
       message = 'Email verified. You can now sign in.';
     } on AuthException {
-      message =
-          'This verification link is invalid or expired. Please sign in to request a new one.';
+      message = 'This verification link is invalid or expired. Please sign in to request a new one.';
     }
 
     if (!mounted) return;

@@ -99,6 +99,29 @@ Widget authBackButton(BuildContext context) {
   );
 }
 
+void showAuthSuccess(BuildContext context, String message) {
+  ScaffoldMessenger.of(context)
+    ..hideCurrentSnackBar()
+    ..showSnackBar(
+      SnackBar(
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: const Color(0xFF2E7D32),
+        content: Row(
+          children: [
+            const Icon(Icons.check_circle_outline, color: Colors.white),
+            const SizedBox(width: 10),
+            Expanded(
+              child: Text(
+                tr(message),
+                style: const TextStyle(color: Colors.white),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+}
+
 void showAuthError(BuildContext context, String message) {
   final translated = tr(message);
   ErrorNotifier.showAuthError(translated);
