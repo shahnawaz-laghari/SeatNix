@@ -293,28 +293,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(24, 8, 24, 16),
-                child: SizedBox(
-                  width: double.infinity,
-                  child: FilledButton(
-                    onPressed: _openSeatSelection,
-                    style: FilledButton.styleFrom(
-                      backgroundColor: authAccentColor,
-                      foregroundColor: buttonTextColor(context),
-                      padding: const EdgeInsets.symmetric(vertical: 18),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      textStyle: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                    child: const Text('Proceed Further'),
-                  ),
-                ),
-              ),
             ],
           ),
         ),
