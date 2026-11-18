@@ -12,7 +12,6 @@ import 'travel_history_screen.dart';
 import 'settings_screen.dart';
 import 'signin_screen.dart';
 
-const _headerColor = Color(0xFFF5A00D);
 const _editColor = Color(0xFF0B57A4);
 const _logoutColor = Color(0xFFE23B3B);
 
@@ -179,7 +178,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          Container(height: _headerHeight, color: _headerColor),
+          Container(height: _headerHeight, color: accentColor(context)),
           Positioned(
             top: 0,
             left: 0,

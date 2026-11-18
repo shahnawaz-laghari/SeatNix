@@ -11,8 +11,6 @@ import '../services/auth_service.dart';
 import '../widgets/auth_style.dart';
 import '../widgets/localized_text.dart';
 
-const _ticketOrange = Color(0xFFF5A00D);
-
 class TicketScreen extends StatelessWidget {
   TicketScreen({
     super.key,
@@ -297,7 +295,7 @@ class TicketScreen extends StatelessWidget {
                 child: FilledButton(
                   onPressed: () => _downloadTicket(context),
                   style: FilledButton.styleFrom(
-                    backgroundColor: _ticketOrange,
+                    backgroundColor: accentColor(context),
                     foregroundColor: buttonTextColor(context),
                     padding: const EdgeInsets.symmetric(vertical: 18),
                     shape: RoundedRectangleBorder(

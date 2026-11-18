@@ -61,6 +61,7 @@ IconData directionalChevronIcon(BuildContext context) =>
 
 const authTextColor = Color(0xFF0E2E2B);
 const authMutedColor = Color(0xFF8A9391);
+
 /// Theme-aware orange: lighter in light mode, deeper in dark mode.
 Color accentColor(BuildContext context) =>
     isDarkMode(context) ? const Color(0xFFD48300) : const Color(0xFFFFB63D);

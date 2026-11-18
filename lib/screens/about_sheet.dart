@@ -105,8 +105,13 @@ class _AboutSheetState extends State<AboutSheet> {
               margin: const EdgeInsets.fromLTRB(16, 8, 16, 4),
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  colors: [Color(0xFFF5A00D), Color(0xFFF7C948)],
+                gradient: LinearGradient(
+                  colors: [
+                    accentColor(context),
+                    isDarkMode(context)
+                        ? Color.lerp(accentColor(context), Colors.black, 0.12)!
+                        : Color.lerp(accentColor(context), Colors.white, 0.25)!,
+                  ],
                   begin: AlignmentDirectional.topStart,
                   end: AlignmentDirectional.bottomEnd,
                 ),
@@ -344,7 +349,7 @@ class _TeamPage extends StatelessWidget {
         name: 'Israr Memon',
         role: 'UI Designer',
         initials: 'IM',
-        color: const Color(0xFFF5A00D),
+        color: accentColor(context),
       ),
       (
         name: 'Shahzaib Shaikh',

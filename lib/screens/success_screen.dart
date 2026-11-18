@@ -5,8 +5,6 @@ import '../widgets/auth_style.dart';
 import '../widgets/localized_text.dart';
 import 'ticket_screen.dart';
 
-const _successOrange = Color(0xFFF5A00D);
-
 class SuccessScreen extends StatefulWidget {
   const SuccessScreen({
     super.key,
@@ -152,7 +150,7 @@ class _SuccessScreenState extends State<SuccessScreen>
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
                                     border: Border.all(
-                                      color: _successOrange,
+                                      color: accentColor(context),
                                       width: 2,
                                     ),
                                   ),
@@ -161,8 +159,8 @@ class _SuccessScreenState extends State<SuccessScreen>
                               Container(
                                 width: 76,
                                 height: 76,
-                                decoration: const BoxDecoration(
-                                  color: _successOrange,
+                                decoration: BoxDecoration(
+                                  color: accentColor(context),
                                   shape: BoxShape.circle,
                                 ),
                               ),
@@ -188,10 +186,10 @@ class _SuccessScreenState extends State<SuccessScreen>
                             curve: Curves.easeOut,
                           ),
                         ),
-                        child: const Text(
+                        child: Text(
                           'Success !',
                           style: TextStyle(
-                            color: _successOrange,
+                            color: accentColor(context),
                             fontSize: 28,
                             fontWeight: FontWeight.w800,
                           ),
@@ -213,7 +211,7 @@ class _SuccessScreenState extends State<SuccessScreen>
                         child: FilledButton(
                           onPressed: () => _openTicket(context),
                           style: FilledButton.styleFrom(
-                            backgroundColor: _successOrange,
+                            backgroundColor: accentColor(context),
                             foregroundColor: buttonTextColor(context),
                             padding: const EdgeInsets.symmetric(vertical: 16),
                             shape: RoundedRectangleBorder(
@@ -235,7 +233,7 @@ class _SuccessScreenState extends State<SuccessScreen>
                               Navigator.of(context)
                                   .popUntil((route) => route.isFirst),
                           style: FilledButton.styleFrom(
-                            backgroundColor: _successOrange,
+                            backgroundColor: accentColor(context),
                             foregroundColor: buttonTextColor(context),
                             padding: const EdgeInsets.symmetric(vertical: 16),
                             shape: RoundedRectangleBorder(

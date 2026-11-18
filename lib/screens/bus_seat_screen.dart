@@ -9,7 +9,6 @@ import '../widgets/localized_text.dart';
 import 'payment_screen.dart';
 
 const _seatAvailableColor = Color(0xFF9AA0A6);
-const _seatSelectedColor = Color(0xFFF5A00D);
 const _seatFilledColor = Color(0xFF0B57A4);
 const _bannerColor = Color(0xFFFCE4E8);
 const _bannerTextColor = Color(0xFFD32F2F);
@@ -118,7 +117,7 @@ class _BusSeatScreenState extends State<BusSeatScreen> {
     final color = isFilled
         ? _seatFilledColor
         : isSelected
-        ? _seatSelectedColor
+        ? accentColor(context)
         : _seatAvailableColor;
 
     return GestureDetector(
@@ -198,10 +197,10 @@ class _BusSeatScreenState extends State<BusSeatScreen> {
       selected: selected,
       onSelected: (_) => _selectDeparture(departure),
       showCheckmark: false,
-      selectedColor: _seatSelectedColor,
+      selectedColor: accentColor(context),
       backgroundColor: screenBackground(context),
       side: BorderSide(
-        color: selected ? _seatSelectedColor : dividerColor(context),
+        color: selected ? accentColor(context) : dividerColor(context),
       ),
       labelStyle: TextStyle(
         color: selected ? buttonTextColor(context) : primaryText(context),
@@ -316,7 +315,7 @@ class _BusSeatScreenState extends State<BusSeatScreen> {
                         ],
                       ),
                     ),
-                    const Icon(Icons.check_circle, color: _seatSelectedColor),
+                    Icon(Icons.check_circle, color: accentColor(context)),
                   ],
                 ),
               ),
@@ -352,7 +351,7 @@ class _BusSeatScreenState extends State<BusSeatScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   _legendItem('Available', _seatAvailableColor),
-                  _legendItem('Selected', _seatSelectedColor),
+                  _legendItem('Selected', accentColor(context)),
                   _legendItem('Filled', _seatFilledColor),
                 ],
               ),
