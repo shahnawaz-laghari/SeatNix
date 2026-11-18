@@ -370,7 +370,6 @@ class _PaymentDetailsScreenState extends State<PaymentDetailsScreen> {
           shadowColor: isDarkMode(context)
               ? authAccentColor.withValues(alpha: 0.22)
               : Colors.black.withValues(alpha: 0.22),
-          borderRadius: BorderRadius.circular(16),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
             side: appCardBorder(context),

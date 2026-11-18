@@ -189,7 +189,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
         shadowColor: isDarkMode(context)
             ? authAccentColor.withValues(alpha: 0.22)
             : Colors.black.withValues(alpha: 0.20),
-        borderRadius: BorderRadius.circular(14),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(14),
           side: selected
