@@ -26,6 +26,10 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+  // Keep one service instance across rebuilds instead of recreating it on
+  // every theme/language update.
+  static final AuthService _authService = AppwriteAuthService();
+
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<String>(
@@ -45,7 +49,7 @@ class MyApp extends StatelessWidget {
               ),
               scaffoldBackgroundColor: const Color(0xFF121416),
             );
-            final authService = AppwriteAuthService();
+            final authService = _authService;
             final query = Uri.base.queryParameters;
             final verificationUserId = query['userId'];
             final verificationSecret = query['secret'];
@@ -62,8 +66,9 @@ class MyApp extends StatelessWidget {
               startScreen = SplashScreen(authService: authService);
             }
             return MaterialApp(
-              // A new key rebuilds the whole navigation stack when the language or theme changes.
-              key: ValueKey('$language-$themeMode'),
+              // Only language changes rebuild the navigation stack so Text
+              // widgets re-translate. Theme changes update MaterialApp in place.
+              key: ValueKey(language),
               title: 'SeatNix',
               debugShowCheckedModeBanner: false,
               locale: Locale(language),

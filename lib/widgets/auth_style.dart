@@ -64,7 +64,7 @@ const authMutedColor = Color(0xFF8A9391);
 
 /// Theme-aware orange: lighter in light mode, deeper in dark mode.
 Color accentColor(BuildContext context) =>
-    isDarkMode(context) ? const Color(0xFFD48300) : const Color(0xFFFFB63D);
+    isDarkMode(context) ? const Color(0xFFD48300) : const Color(0xFFF5A00D);
 
 InputDecoration authFieldDecoration(
   BuildContext context, {
