@@ -355,6 +355,9 @@ const urduTranslations = <String, String>{
 
   // Customer service
   'Customer Service': 'کسٹمر سروس',
+  'SeatNix Support': 'SeatNix سپورٹ',
+  'Online • we usually reply in a few minutes':
+      'آن لائن • ہم عام طور پر چند منٹوں میں جواب دیتے ہیں',
   'Type your message': 'اپنا پیغام لکھیں',
   'Hi! Welcome to SeatNix support. How can we help you today?':
       'خوش آمدید! ہم آج آپ کی کیسے مدد کر سکتے ہیں؟',

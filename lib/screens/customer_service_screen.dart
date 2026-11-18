@@ -3,8 +3,6 @@ import 'package:flutter/material.dart' hide Text;
 import '../widgets/auth_style.dart';
 import '../widgets/localized_text.dart';
 
-const _bubbleGrey = Color(0xFFF1F3F2);
-
 class _ChatMessage {
   const _ChatMessage({required this.text, required this.fromUser});
 
@@ -54,36 +52,113 @@ class _CustomerServiceScreenState extends State<CustomerServiceScreen> {
   }
 
   Widget _bubble(_ChatMessage message) {
-    final alignment = message.fromUser
+    final fromUser = message.fromUser;
+    final alignment = fromUser
         ? AlignmentDirectional.centerEnd
         : AlignmentDirectional.centerStart;
+    final bubbleColor = fromUser
+        ? accentColor(context)
+        : isDarkMode(context)
+        ? const Color(0xFF262C2F)
+        : const Color(0xFFF1F3F2);
+    final textColor = fromUser
+        ? buttonTextColor(context)
+        : isDarkMode(context)
+        ? const Color(0xFFF2F5F4)
+        : const Color(0xFF0E2E2B);
+
     return Align(
       alignment: alignment,
       child: Container(
         constraints: BoxConstraints(
-          maxWidth: MediaQuery.sizeOf(context).width * 0.75,
+          maxWidth: MediaQuery.sizeOf(context).width * 0.78,
         ),
-        margin: const EdgeInsets.only(bottom: 10),
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+        margin: const EdgeInsets.only(bottom: 12),
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 11),
         decoration: BoxDecoration(
-          color: message.fromUser ? accentColor(context) : _bubbleGrey,
+          color: bubbleColor,
           borderRadius: BorderRadiusDirectional.only(
             topStart: const Radius.circular(16),
             topEnd: const Radius.circular(16),
-            bottomStart: Radius.circular(message.fromUser ? 16 : 4),
-            bottomEnd: Radius.circular(message.fromUser ? 4 : 16),
+            bottomStart: Radius.circular(fromUser ? 16 : 4),
+            bottomEnd: Radius.circular(fromUser ? 4 : 16),
           ),
-          border: Border.fromBorderSide(appCardBorder(context)),
-          boxShadow: appCardShadow(context),
+          border: fromUser
+              ? null
+              : Border.fromBorderSide(appCardBorder(context)),
+          boxShadow: fromUser ? null : appCardShadow(context),
         ),
         child: Text(
           message.text,
-          style: TextStyle(
-            color: message.fromUser ? Colors.white : primaryText(context),
-            fontSize: 15,
-            height: 1.4,
-          ),
+          style: TextStyle(color: textColor, fontSize: 15, height: 1.4),
         ),
+      ),
+    );
+  }
+
+  Widget _supportHeader() {
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.fromLTRB(20, 12, 20, 0),
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: cardBackground(context),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.fromBorderSide(appCardBorder(context)),
+        boxShadow: appCardShadow(context),
+      ),
+      child: Row(
+        textDirection: Directionality.of(context),
+        children: [
+          CircleAvatar(
+            radius: 24,
+            backgroundColor: accentColor(context),
+            child: Icon(
+              Icons.support_agent_rounded,
+              color: buttonTextColor(context),
+              size: 24,
+            ),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'SeatNix Support',
+                  style: TextStyle(
+                    color: primaryText(context),
+                    fontSize: 15,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Row(
+                  children: [
+                    Container(
+                      width: 8,
+                      height: 8,
+                      decoration: const BoxDecoration(
+                        color: Color(0xFF43A047),
+                        shape: BoxShape.circle,
+                      ),
+                    ),
+                    const SizedBox(width: 6),
+                    Expanded(
+                      child: Text(
+                        'Online • we usually reply in a few minutes',
+                        style: TextStyle(
+                          color: mutedText(context),
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -117,6 +192,7 @@ class _CustomerServiceScreenState extends State<CustomerServiceScreen> {
       body: SafeArea(
         child: Column(
           children: [
+            _supportHeader(),
             Expanded(
               child: ListView.builder(
                 controller: _scrollController,
@@ -145,10 +221,23 @@ class _CustomerServiceScreenState extends State<CustomerServiceScreen> {
                         hintText: tr('Type your message'),
                         hintStyle: TextStyle(color: mutedText(context)),
                         filled: true,
-                        fillColor: _bubbleGrey,
+                        fillColor: isDarkMode(context)
+                            ? const Color(0xFF262C2F)
+                            : const Color(0xFFF1F3F2),
                         contentPadding: const EdgeInsets.symmetric(
                           horizontal: 16,
                           vertical: 12,
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(24),
+                          borderSide: BorderSide(color: dividerColor(context)),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(24),
+                          borderSide: BorderSide(
+                            color: accentColor(context),
+                            width: 1.5,
+                          ),
                         ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(24),
@@ -164,10 +253,13 @@ class _CustomerServiceScreenState extends State<CustomerServiceScreen> {
                     child: InkWell(
                       customBorder: const CircleBorder(),
                       onTap: _sendMessage,
-                      child: const SizedBox(
+                      child: SizedBox(
                         width: 48,
                         height: 48,
-                        child: Icon(Icons.send_rounded, color: Colors.white),
+                        child: Icon(
+                          Icons.send_rounded,
+                          color: buttonTextColor(context),
+                        ),
                       ),
                     ),
                   ),
