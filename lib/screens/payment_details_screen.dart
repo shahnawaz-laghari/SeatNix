@@ -366,7 +366,15 @@ class _PaymentDetailsScreenState extends State<PaymentDetailsScreen> {
         const SizedBox(height: 12),
         Material(
           color: _paymentBlue,
+          elevation: 3,
+          shadowColor: isDarkMode(context)
+              ? authAccentColor.withValues(alpha: 0.22)
+              : Colors.black.withValues(alpha: 0.22),
           borderRadius: BorderRadius.circular(16),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+            side: appCardBorder(context),
+          ),
           child: InkWell(
             borderRadius: BorderRadius.circular(16),
             onTap: () => _showPaymentMethodDetails(last),

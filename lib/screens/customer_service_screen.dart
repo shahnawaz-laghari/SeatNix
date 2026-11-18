@@ -73,6 +73,8 @@ class _CustomerServiceScreenState extends State<CustomerServiceScreen> {
             bottomStart: Radius.circular(message.fromUser ? 16 : 4),
             bottomEnd: Radius.circular(message.fromUser ? 4 : 16),
           ),
+          border: Border.fromBorderSide(appCardBorder(context)),
+          boxShadow: appCardShadow(context),
         ),
         child: Text(
           message.text,

@@ -286,7 +286,8 @@ class _BusSeatScreenState extends State<BusSeatScreen> {
                 decoration: BoxDecoration(
                   color: cardBackground(context),
                   borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: _seatFilledColor, width: 1.2),
+                  border: Border.fromBorderSide(appCardBorder(context)),
+                  boxShadow: appCardShadow(context),
                 ),
                 child: Row(
                   children: [
@@ -362,8 +363,10 @@ class _BusSeatScreenState extends State<BusSeatScreen> {
                 child: Container(
                   padding: const EdgeInsets.symmetric(vertical: 16),
                   decoration: BoxDecoration(
-                    border: Border.all(color: dividerColor(context)),
+                    color: cardBackground(context),
+                    border: Border.fromBorderSide(appCardBorder(context)),
                     borderRadius: BorderRadius.circular(16),
+                    boxShadow: appCardShadow(context),
                   ),
                   child: Column(
                     children: [

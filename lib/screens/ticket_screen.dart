@@ -192,14 +192,8 @@ class TicketScreen extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: cardBackground(context),
                       borderRadius: BorderRadius.circular(16),
-                      border: Border.all(color: dividerColor(context)),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withValues(alpha: 0.06),
-                          blurRadius: 12,
-                          offset: const Offset(0, 4),
-                        ),
-                      ],
+                      border: Border.fromBorderSide(appCardBorder(context)),
+                      boxShadow: appCardShadow(context),
                     ),
                     child: Column(
                       children: [

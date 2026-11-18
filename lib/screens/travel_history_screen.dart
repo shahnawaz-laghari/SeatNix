@@ -159,10 +159,10 @@ class _TravelHistoryScreenState extends State<TravelHistoryScreen> {
             ? authAccentColor.withValues(alpha: 0.12)
             : cardBackground(context),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(
-          color: selected ? authAccentColor : dividerColor(context),
-          width: selected ? 2 : 1,
-        ),
+        border: selected
+            ? Border.all(color: authAccentColor, width: 2)
+            : Border.fromBorderSide(appCardBorder(context)),
+        boxShadow: appCardShadow(context),
       ),
       clipBehavior: Clip.antiAlias,
       child: InkWell(

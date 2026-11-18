@@ -24,6 +24,26 @@ Color buttonTextColor(BuildContext context) =>
 Color dividerColor(BuildContext context) =>
     isDarkMode(context) ? const Color(0xFF3A4245) : const Color(0xFFD5DAD9);
 
+/// Subtle card edge: black in light mode, orange in dark mode.
+BorderSide appCardBorder(BuildContext context) => BorderSide(
+  color: isDarkMode(context)
+      ? authAccentColor.withValues(alpha: 0.38)
+      : Colors.black.withValues(alpha: 0.22),
+  width: isDarkMode(context) ? 1.2 : 1,
+);
+
+/// Soft card shadow: black in light mode, orange in dark mode.
+List<BoxShadow> appCardShadow(BuildContext context) => [
+  BoxShadow(
+    color: isDarkMode(context)
+        ? authAccentColor.withValues(alpha: 0.10)
+        : Colors.black.withValues(alpha: 0.10),
+    blurRadius: 10,
+    spreadRadius: 0,
+    offset: const Offset(0, 3),
+  ),
+];
+
 bool isRtlLayout(BuildContext context) =>
     Directionality.of(context) == TextDirection.rtl;
 

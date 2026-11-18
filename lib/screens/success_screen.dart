@@ -112,13 +112,8 @@ class _SuccessScreenState extends State<SuccessScreen>
                   decoration: BoxDecoration(
                     color: cardBackground(context),
                     borderRadius: BorderRadius.circular(20),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withValues(alpha: 0.12),
-                        blurRadius: 20,
-                        offset: const Offset(0, 8),
-                      ),
-                    ],
+                    border: Border.fromBorderSide(appCardBorder(context)),
+                    boxShadow: appCardShadow(context),
                   ),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,

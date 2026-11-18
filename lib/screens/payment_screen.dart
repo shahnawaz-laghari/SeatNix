@@ -185,7 +185,17 @@ class _PaymentScreenState extends State<PaymentScreen> {
       padding: const EdgeInsets.only(bottom: 12),
       child: Material(
         color: selected ? _paymentBlue : cardBackground(context),
+        elevation: selected ? 3 : 2,
+        shadowColor: isDarkMode(context)
+            ? authAccentColor.withValues(alpha: 0.22)
+            : Colors.black.withValues(alpha: 0.20),
         borderRadius: BorderRadius.circular(14),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(14),
+          side: selected
+              ? const BorderSide(color: authAccentColor, width: 1.4)
+              : appCardBorder(context),
+        ),
         child: InkWell(
           borderRadius: BorderRadius.circular(14),
           onTap: () => setState(() => _method = method),

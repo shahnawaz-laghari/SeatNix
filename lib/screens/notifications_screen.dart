@@ -88,7 +88,8 @@ class _NotificationsScreenState extends State<NotificationsScreen>
       decoration: BoxDecoration(
         color: cardBackground(context),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: dividerColor(context)),
+        border: Border.fromBorderSide(appCardBorder(context)),
+        boxShadow: appCardShadow(context),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,

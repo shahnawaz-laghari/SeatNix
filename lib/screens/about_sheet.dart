@@ -389,7 +389,8 @@ class _TeamPage extends StatelessWidget {
                       ? const Color(0xFF262C2F)
                       : const Color(0xFFF5F7F6),
                   borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: dividerColor(context)),
+                  border: Border.fromBorderSide(appCardBorder(context)),
+                  boxShadow: appCardShadow(context),
                 ),
                 child: Row(
                   textDirection: Directionality.of(context),
