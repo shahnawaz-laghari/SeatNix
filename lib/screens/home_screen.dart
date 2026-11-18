@@ -128,7 +128,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final appTheme = Theme.of(context);
     final pickerTheme = DatePickerThemeData(
       backgroundColor: cardBackground(context),
-      headerBackgroundColor: authAccentColor,
+      headerBackgroundColor: accentColor(context),
       headerForegroundColor: buttonTextColor(context),
       dividerColor: dividerColor(context),
       dayStyle: TextStyle(color: primaryText(context)),
@@ -146,16 +146,16 @@ class _HomeScreenState extends State<HomeScreen> {
         return primaryText(context);
       }),
       dayBackgroundColor: WidgetStateProperty.resolveWith<Color?>((states) {
-        if (states.contains(WidgetState.selected)) return authAccentColor;
+        if (states.contains(WidgetState.selected)) return accentColor(context);
         return null;
       }),
-      todayForegroundColor: WidgetStateProperty.all(authAccentColor),
+      todayForegroundColor: WidgetStateProperty.all(accentColor(context)),
       todayBackgroundColor: WidgetStateProperty.all(Colors.transparent),
       cancelButtonStyle: TextButton.styleFrom(
         foregroundColor: mutedText(context),
       ),
       confirmButtonStyle: TextButton.styleFrom(
-        foregroundColor: authAccentColor,
+        foregroundColor: accentColor(context),
       ),
     );
     final picked = await showDatePicker(
@@ -166,7 +166,7 @@ class _HomeScreenState extends State<HomeScreen> {
       builder: (context, child) => Theme(
         data: appTheme.copyWith(
           colorScheme: appTheme.colorScheme.copyWith(
-            primary: authAccentColor,
+            primary: accentColor(context),
             onPrimary: buttonTextColor(context),
             surface: cardBackground(context),
             onSurface: primaryText(context),
@@ -382,7 +382,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: authAccentColor,
+        color: accentColor(context),
         borderRadius: BorderRadius.circular(24),
       ),
       child: Column(
@@ -409,8 +409,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 top: 38,
                 child: Material(
                   color: authTextColor,
-                  shape: const CircleBorder(
-                    side: BorderSide(color: authAccentColor, width: 3),
+                  shape: CircleBorder(
+                    side: BorderSide(color: accentColor(context), width: 3),
                   ),
                   child: InkWell(
                     customBorder: const CircleBorder(),
@@ -465,7 +465,7 @@ class _HomeScreenState extends State<HomeScreen> {
               onPressed: _openSeatSelection,
               style: FilledButton.styleFrom(
                 backgroundColor: Colors.white,
-                foregroundColor: authAccentColor,
+                foregroundColor: accentColor(context),
                 padding: const EdgeInsets.symmetric(vertical: 16),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16),

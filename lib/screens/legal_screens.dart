@@ -52,7 +52,7 @@ class LegalDocumentScreen extends StatelessWidget {
                 Text(
                   section.titleKey,
                   style: TextStyle(
-                    color: authAccentColor,
+                    color: accentColor(context),
                     fontSize: 16,
                     fontWeight: FontWeight.w800,
                   ),

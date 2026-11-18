@@ -65,7 +65,7 @@ class _EmailVerificationLinkScreenState
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            CircularProgressIndicator(color: authAccentColor),
+            CircularProgressIndicator(color: accentColor(context)),
             const SizedBox(height: 20),
             Text(
               'Verifying your email...',

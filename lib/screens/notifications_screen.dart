@@ -47,7 +47,7 @@ class _NotificationsScreenState extends State<NotificationsScreen>
       message: 'Choose your route and seat to plan your next trip.',
       time: 'Getting started',
       icon: Icons.directions_bus_outlined,
-      color: authAccentColor,
+      color: accentColor(context),
       isTransaction: false,
     ),
     _NotificationItem(
@@ -230,9 +230,9 @@ class _NotificationsScreenState extends State<NotificationsScreen>
         centerTitle: true,
         bottom: TabBar(
           controller: _tabController,
-          labelColor: authAccentColor,
+          labelColor: accentColor(context),
           unselectedLabelColor: mutedText(context),
-          indicatorColor: authAccentColor,
+          indicatorColor: accentColor(context),
           indicatorWeight: 3,
           tabs: const [
             Tab(text: 'All'),

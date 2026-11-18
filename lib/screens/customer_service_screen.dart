@@ -66,7 +66,7 @@ class _CustomerServiceScreenState extends State<CustomerServiceScreen> {
         margin: const EdgeInsets.only(bottom: 10),
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
         decoration: BoxDecoration(
-          color: message.fromUser ? authAccentColor : _bubbleGrey,
+          color: message.fromUser ? accentColor(context) : _bubbleGrey,
           borderRadius: BorderRadiusDirectional.only(
             topStart: const Radius.circular(16),
             topEnd: const Radius.circular(16),
@@ -159,7 +159,7 @@ class _CustomerServiceScreenState extends State<CustomerServiceScreen> {
                   ),
                   const SizedBox(width: 10),
                   Material(
-                    color: authAccentColor,
+                    color: accentColor(context),
                     shape: const CircleBorder(),
                     child: InkWell(
                       customBorder: const CircleBorder(),

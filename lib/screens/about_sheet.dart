@@ -215,7 +215,7 @@ class _AboutSheetState extends State<AboutSheet> {
                               height: 7,
                               decoration: BoxDecoration(
                                 color: _page == i
-                                    ? authAccentColor
+                                    ? accentColor(context)
                                     : dividerColor(context),
                                 borderRadius: BorderRadius.circular(8),
                               ),
@@ -233,7 +233,7 @@ class _AboutSheetState extends State<AboutSheet> {
                       }
                     },
                     style: FilledButton.styleFrom(
-                      backgroundColor: authAccentColor,
+                      backgroundColor: accentColor(context),
                       foregroundColor: buttonTextColor(context),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(14),
@@ -309,7 +309,7 @@ class _AboutPage extends StatelessWidget {
             icon: Icons.receipt_long_outlined,
             title: 'Keep your tickets',
             body: 'View a digital e-ticket, save it as an image, and find all past trips in Travel History.',
-            color: authAccentColor,
+            color: accentColor(context),
             text: text,
           ),
           _InfoCard(
@@ -481,7 +481,7 @@ class _WhyPage extends StatelessWidget {
             icon: Icons.apps_outlined,
             title: 'Learn by building',
             body: 'The project is a hands-on learning exercise covering Flutter UI, authentication, storage, localization and theming.',
-            color: authAccentColor,
+            color: accentColor(context),
             text: text,
           ),
           _InfoCard(

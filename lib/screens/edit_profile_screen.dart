@@ -162,14 +162,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 FilledButton(
                   onPressed: _isSaving ? null : _save,
                   style: FilledButton.styleFrom(
-                    backgroundColor: authAccentColor,
+                    backgroundColor: accentColor(context),
                     foregroundColor: Colors.white,
                     disabledForegroundColor: Colors.white.withValues(
                       alpha: 0.8,
                     ),
-                    disabledBackgroundColor: authAccentColor.withValues(
-                      alpha: 0.6,
-                    ),
+                    disabledBackgroundColor: accentColor(context)
+                        .withValues(alpha: 0.6),
                     padding: const EdgeInsets.symmetric(vertical: 18),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),

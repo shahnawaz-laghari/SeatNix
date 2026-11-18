@@ -117,7 +117,7 @@ class _EmailVerificationCodeScreenState
               FilledButton(
                 onPressed: _isLoading ? null : _verify,
                 style: FilledButton.styleFrom(
-                  backgroundColor: authAccentColor,
+                  backgroundColor: accentColor(context),
                   foregroundColor: buttonTextColor(context),
                   padding: const EdgeInsets.symmetric(vertical: 18),
                   shape: RoundedRectangleBorder(

@@ -388,11 +388,10 @@ class _BusSeatScreenState extends State<BusSeatScreen> {
                 child: FilledButton(
                   onPressed: _selected == null ? null : _confirmSeat,
                   style: FilledButton.styleFrom(
-                    backgroundColor: authAccentColor,
+                    backgroundColor: accentColor(context),
                     foregroundColor: buttonTextColor(context),
-                    disabledBackgroundColor: authAccentColor.withValues(
-                      alpha: 0.5,
-                    ),
+                    disabledBackgroundColor: accentColor(context)
+                        .withValues(alpha: 0.5),
                     padding: const EdgeInsets.symmetric(vertical: 18),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(16),

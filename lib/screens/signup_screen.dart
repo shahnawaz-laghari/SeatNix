@@ -293,11 +293,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 FilledButton(
                   onPressed: _isLoading ? null : _submit,
                   style: FilledButton.styleFrom(
-                    backgroundColor: authAccentColor,
+                    backgroundColor: accentColor(context),
                     foregroundColor: buttonTextColor(context),
-                    disabledBackgroundColor: authAccentColor.withValues(
-                      alpha: 0.6,
-                    ),
+                    disabledBackgroundColor: accentColor(context)
+                        .withValues(alpha: 0.6),
                     padding: EdgeInsets.symmetric(vertical: 18),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),

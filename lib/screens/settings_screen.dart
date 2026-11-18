@@ -112,7 +112,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     mode == themeController.value
                         ? Icons.radio_button_checked
                         : Icons.radio_button_off,
-                    color: authAccentColor,
+                    color: accentColor(context),
                   ),
                   const SizedBox(width: 12),
                   Text(_themeLabel(mode)),
@@ -146,7 +146,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     option.$1 == languageController.value
                         ? Icons.radio_button_checked
                         : Icons.radio_button_off,
-                    color: authAccentColor,
+                    color: accentColor(context),
                   ),
                   const SizedBox(width: 12),
                   Text(option.$2),
@@ -289,8 +289,8 @@ class _SectionTitle extends StatelessWidget {
       padding: const EdgeInsets.only(top: 24, bottom: 8),
       child: Text(
         tr(title).toUpperCase(),
-        style: const TextStyle(
-          color: authAccentColor,
+        style: TextStyle(
+          color: accentColor(context),
           fontSize: 13,
           fontWeight: FontWeight.w700,
           letterSpacing: 0.8,
@@ -320,7 +320,7 @@ class _SwitchRow extends StatelessWidget {
         SwitchListTile(
           contentPadding: EdgeInsets.zero,
           activeThumbColor: Colors.white,
-          activeTrackColor: authAccentColor,
+          activeTrackColor: accentColor(context),
           title: Text(
             title,
             style: TextStyle(

@@ -156,11 +156,11 @@ class _TravelHistoryScreenState extends State<TravelHistoryScreen> {
       margin: const EdgeInsets.only(bottom: 14),
       decoration: BoxDecoration(
         color: selected
-            ? authAccentColor.withValues(alpha: 0.12)
+            ? accentColor(context).withValues(alpha: 0.12)
             : cardBackground(context),
         borderRadius: BorderRadius.circular(16),
         border: selected
-            ? Border.all(color: authAccentColor, width: 2)
+            ? Border.all(color: accentColor(context), width: 2)
             : Border.fromBorderSide(appCardBorder(context)),
         boxShadow: appCardShadow(context),
       ),
@@ -184,7 +184,7 @@ class _TravelHistoryScreenState extends State<TravelHistoryScreen> {
                     selected
                         ? Icons.check_circle
                         : Icons.radio_button_unchecked,
-                    color: selected ? authAccentColor : mutedText(context),
+                    color: selected ? accentColor(context) : mutedText(context),
                   ),
                 ),
               Expanded(

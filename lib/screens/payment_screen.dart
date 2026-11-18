@@ -187,12 +187,12 @@ class _PaymentScreenState extends State<PaymentScreen> {
         color: selected ? _paymentBlue : cardBackground(context),
         elevation: selected ? 3 : 2,
         shadowColor: isDarkMode(context)
-            ? authAccentColor.withValues(alpha: 0.22)
+            ? accentColor(context).withValues(alpha: 0.22)
             : Colors.black.withValues(alpha: 0.20),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(14),
           side: selected
-              ? const BorderSide(color: authAccentColor, width: 1.4)
+              ? BorderSide(color: accentColor(context), width: 1.4)
               : appCardBorder(context),
         ),
         child: InkWell(
@@ -537,8 +537,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       ),
                       Text(
                         'Rs $_total',
-                        style: const TextStyle(
-                          color: authAccentColor,
+                        style: TextStyle(
+                          color: accentColor(context),
                           fontSize: 24,
                           fontWeight: FontWeight.w900,
                         ),

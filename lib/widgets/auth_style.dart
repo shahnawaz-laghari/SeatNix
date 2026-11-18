@@ -27,7 +27,7 @@ Color dividerColor(BuildContext context) =>
 /// Subtle card edge: black in light mode, orange in dark mode.
 BorderSide appCardBorder(BuildContext context) => BorderSide(
   color: isDarkMode(context)
-      ? authAccentColor.withValues(alpha: 0.38)
+      ? accentColor(context).withValues(alpha: 0.45)
       : Colors.black.withValues(alpha: 0.22),
   width: isDarkMode(context) ? 1.2 : 1,
 );
@@ -36,7 +36,7 @@ BorderSide appCardBorder(BuildContext context) => BorderSide(
 List<BoxShadow> appCardShadow(BuildContext context) => [
   BoxShadow(
     color: isDarkMode(context)
-        ? authAccentColor.withValues(alpha: 0.10)
+        ? accentColor(context).withValues(alpha: 0.18)
         : Colors.black.withValues(alpha: 0.10),
     blurRadius: 10,
     spreadRadius: 0,
@@ -61,7 +61,9 @@ IconData directionalChevronIcon(BuildContext context) =>
 
 const authTextColor = Color(0xFF0E2E2B);
 const authMutedColor = Color(0xFF8A9391);
-const authAccentColor = Color(0xFFF5A00D);
+/// Theme-aware orange: lighter in light mode, deeper in dark mode.
+Color accentColor(BuildContext context) =>
+    isDarkMode(context) ? const Color(0xFFD48300) : const Color(0xFFFFB63D);
 
 InputDecoration authFieldDecoration(
   BuildContext context, {
