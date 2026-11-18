@@ -81,6 +81,14 @@ class MyApp extends StatelessWidget {
               theme: _withLanguageFont(lightTheme, language),
               darkTheme: _withLanguageFont(darkTheme, language),
               themeMode: themeMode,
+              // Animate color changes so switching theme is smooth instead of
+              // swapping every surface in a single jarring frame.
+              builder: (context, child) => AnimatedTheme(
+                data: Theme.of(context),
+                duration: const Duration(milliseconds: 220),
+                curve: Curves.easeInOut,
+                child: child ?? const SizedBox.shrink(),
+              ),
               home: startScreen,
             );
           },

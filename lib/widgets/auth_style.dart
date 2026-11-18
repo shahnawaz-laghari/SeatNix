@@ -36,11 +36,11 @@ BorderSide appCardBorder(BuildContext context) => BorderSide(
 List<BoxShadow> appCardShadow(BuildContext context) => [
   BoxShadow(
     color: isDarkMode(context)
-        ? accentColor(context).withValues(alpha: 0.18)
-        : Colors.black.withValues(alpha: 0.10),
-    blurRadius: 10,
+        ? accentColor(context).withValues(alpha: 0.12)
+        : Colors.black.withValues(alpha: 0.08),
+    blurRadius: 6,
     spreadRadius: 0,
-    offset: const Offset(0, 3),
+    offset: const Offset(0, 2),
   ),
 ];
 

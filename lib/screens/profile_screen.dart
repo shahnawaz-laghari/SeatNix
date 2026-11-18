@@ -37,14 +37,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Future<void> _refreshAccount() async {
     final showPhone = await SettingsStore.showPhone;
-    if (mounted) setState(() => _showPhone = showPhone);
+    if (mounted && _showPhone != showPhone) {
+      setState(() => _showPhone = showPhone);
+    }
     try {
       await widget.authService.currentUser();
       await widget.authService.currentAvatar();
     } on AuthException {
       // Keep the profile screen available with placeholders when offline.
     }
-    if (mounted) setState(() {});
   }
 
   Future<void> _logout(BuildContext context) async {
@@ -149,10 +150,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Widget _avatarImage(Uint8List? bytes) {
     if (bytes == null) return _avatarPlaceholder();
-    return Image.memory(
-      bytes,
-      fit: BoxFit.cover,
-      errorBuilder: (_, _, _) => _avatarPlaceholder(),
+    return RepaintBoundary(
+      child: Image.memory(
+        bytes,
+        fit: BoxFit.cover,
+        errorBuilder: (_, _, _) => _avatarPlaceholder(),
+      ),
     );
   }
 

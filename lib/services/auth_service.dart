@@ -326,6 +326,9 @@ class AppwriteAuthService implements AuthService {
 
   @override
   Future<Uint8List?> currentAvatar() async {
+    // Reuse the decoded bytes so Image.memory keeps the same cache key when
+    // navigating between screens. Refetching on every call caused flicker.
+    if (cachedAvatar != null) return cachedAvatar;
     try {
       final user = await AppwriteBackend.account.get();
       final fileId = user.prefs.data['avatarFileId'] as String?;
@@ -400,7 +403,8 @@ class AppwriteAuthService implements AuthService {
           // A stale photo should not prevent the profile update from succeeding.
         }
       }
-      await currentAvatar();
+      // Use the bytes just uploaded so the new avatar appears immediately.
+      cachedAvatar = bytes;
       return file.$id;
     } on AppwriteException catch (e) {
       throw AuthException(e.message ?? 'Could not upload your photo.');

@@ -293,7 +293,7 @@ class _TravelHistoryScreenState extends State<TravelHistoryScreen> {
               style: TextStyle(color: mutedText(context), fontSize: 13),
             ),
           ),
-        for (final trip in trips) _tripCard(trip),
+        for (final trip in trips) RepaintBoundary(child: _tripCard(trip)),
       ],
     );
   }

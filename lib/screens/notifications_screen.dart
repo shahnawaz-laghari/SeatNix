@@ -194,7 +194,12 @@ class _NotificationsScreenState extends State<NotificationsScreen>
     }
     return ListView(
       padding: const EdgeInsets.fromLTRB(20, 16, 20, 20),
-      children: notifications.map(_notificationTile).toList(),
+      children: notifications
+          .map(
+            (notification) =>
+                RepaintBoundary(child: _notificationTile(notification)),
+          )
+          .toList(),
     );
   }
 

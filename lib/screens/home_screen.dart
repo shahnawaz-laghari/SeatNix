@@ -80,7 +80,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> _loadAvatar() async {
     try {
       final bytes = await widget.authService.currentAvatar();
-      if (mounted) setState(() => _avatarBytes = bytes);
+      if (!mounted || identical(_avatarBytes, bytes)) return;
+      setState(() => _avatarBytes = bytes);
     } on AuthException {
       // Keep the initials placeholder when an avatar is unavailable.
     }
@@ -236,10 +237,7 @@ class _HomeScreenState extends State<HomeScreen> {
         builder: (_) => ProfileScreen(authService: widget.authService),
       ),
     );
-    if (mounted) {
-      _loadAvatar();
-      setState(() {});
-    }
+    if (mounted) await _loadAvatar();
   }
 
   void _openNotifications() {
@@ -325,12 +323,14 @@ class _HomeScreenState extends State<HomeScreen> {
             alignment: Alignment.center,
             child: avatarBytes == null
                 ? initials
-                : Image.memory(
-                    avatarBytes,
-                    width: 52,
-                    height: 52,
-                    fit: BoxFit.cover,
-                    errorBuilder: (_, _, _) => initials,
+                : RepaintBoundary(
+                    child: Image.memory(
+                      avatarBytes,
+                      width: 52,
+                      height: 52,
+                      fit: BoxFit.cover,
+                      errorBuilder: (_, _, _) => initials,
+                    ),
                   ),
           ),
         ),
@@ -596,98 +596,102 @@ class _JourneyCard extends StatelessWidget {
       fontWeight: FontWeight.w600,
     );
 
-    return Container(
-      margin: const EdgeInsets.only(bottom: 12),
-      decoration: BoxDecoration(
-        color: cardBackground(context),
-        borderRadius: BorderRadius.circular(16),
-        border: Border.fromBorderSide(appCardBorder(context)),
-        boxShadow: appCardShadow(context),
-      ),
-      clipBehavior: Clip.antiAlias,
-      child: InkWell(
-        onTap: onTap,
-        child: IntrinsicHeight(
-          child: Row(
-            children: [
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
+    return RepaintBoundary(
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 12),
+        decoration: BoxDecoration(
+          color: cardBackground(context),
+          borderRadius: BorderRadius.circular(16),
+          border: Border.fromBorderSide(appCardBorder(context)),
+          boxShadow: appCardShadow(context),
+        ),
+        clipBehavior: Clip.antiAlias,
+        child: InkWell(
+          onTap: onTap,
+          child: IntrinsicHeight(
+            child: Row(
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          journey.title,
+                          style: TextStyle(
+                            color: primaryText(context),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w800,
+                          ),
+                        ),
+                        const SizedBox(height: 12),
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: 44,
+                              child: Text('From', style: labelStyle),
+                            ),
+                            Expanded(
+                              child: Text(journey.from, style: valueStyle),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 6),
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: 44,
+                              child: Text('To', style: labelStyle),
+                            ),
+                            Expanded(
+                              child: Text(journey.to, style: valueStyle),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Container(
+                  width: 130,
+                  color: _journeyBlue,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 14,
+                  ),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      const Text(
+                        'departure time',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.white70, fontSize: 11),
+                      ),
+                      const SizedBox(height: 4),
                       Text(
-                        journey.title,
-                        style: TextStyle(
-                          color: primaryText(context),
-                          fontSize: 16,
+                        journey.time,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
                           fontWeight: FontWeight.w800,
                         ),
                       ),
-                      const SizedBox(height: 12),
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: 44,
-                            child: Text('From', style: labelStyle),
-                          ),
-                          Expanded(
-                            child: Text(journey.from, style: valueStyle),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 6),
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: 44,
-                            child: Text('To', style: labelStyle),
-                          ),
-                          Expanded(child: Text(journey.to, style: valueStyle)),
-                        ],
+                      const SizedBox(height: 4),
+                      Text(
+                        journey.date,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 11,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ],
                   ),
                 ),
-              ),
-              Container(
-                width: 130,
-                color: _journeyBlue,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 14,
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      'departure time',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white70, fontSize: 11),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      journey.time,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w800,
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      journey.date,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 11,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
